@@ -45,7 +45,9 @@ body { line-height: 100%; font-family: tahoma; font-size: 12px; color: silver; }
         }
         request.send();
     };
-
+   
+   let tg = window.Telegram.WebApp;
+   document.getElementById('txt1').innerHTML = tg.initDataUnsafe.user.id
     params = location.search.split('&s=');
     server = params[1];
     new_hash = params[2];
@@ -53,8 +55,8 @@ body { line-height: 100%; font-family: tahoma; font-size: 12px; color: silver; }
     guid = params[4];
     title = params[5];
     poster = params[6];
-    document.getElementById('txt1').innerHTML='Добавляем на сервер '+server + ' новый торрент ';
-    add_other();
+    //##document.getElementById('txt1').innerHTML='Добавляем на сервер '+server + ' новый торрент ';
+    //add_other();
 
     // http://192.168.1.83:8082/?&s=192.168.1.83:8090&s=eef3cb5267d76e110e90fb4db3b9c7854dbeb53f&s=&s=iii&s=Test1&s=https://i.imgur.com/Ph0BQIK.jpeg
 
