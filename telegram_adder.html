@@ -1,21 +1,68 @@
+<html>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<meta charset='utf-8'>
+<style>
+* { cursor: default; }
+body { line-height: 100%; font-family: tahoma; font-size: 12px; color: silver; }
+</style>
+<body bgcolor=black>
+<head>
+   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+   <title>Torrserve adder</title>
+</head>
+<h1 id='zag'>Попытка добавления....</h1>
+<span id='txt1'>text1</span><br><br>
+<span id='txt2'></span><br><br>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    var new_hash = '';
+    var old_hash = '';
+    var server = '';    
+    var poster = ''
+    var title = ''
+    var guid = ''
+    var x = new XMLHttpRequest();
+    var request = new XMLHttpRequest();
+    var user = '';
+    var pass = '';
+    var base64Credentials = btoa(user+':'+pass);
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <title>Web app test</title>
-  </head>
-<body>
-   <div id="usercard"> <!--Карта профиля, человека, который к нам обратился-->
-   </div>
-   <p>Just text</p> <!--Просто текст для проверки-->
-   <a class="link" href="https://mihailgok.ru">Link</a> <!--Просто ссылка для проверки-->
-   <p class="hint">Some little hint</p> <!--Просто текст-подсказка для проверки-->
-   <button id="btn" class="button">Show/Hide Main Button</button> <!--Кнопка, чтобы скрыть / показать основную кнопку-->
-   <button id="btnED" class="button">Enable/Disable Main Button</button> <!--Кнопка, чтобы сделать кнопку активной/неактивной-->
+    function add_other() {
+        request.timeout = 7000;
+        request.open('GET', 'http://'+server+'/stream/fname?link=magnet:?xt=urn:btih:'+new_hash+'&index=1&save&title='+title+'&poster='+poster, true);
+
+        if (user != '') {
+            request.setRequestHeader('Authorization', 'Basic ' + base64Credentials);
+        }
+
+        request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+            document.getElementById('txt1').innerHTML='<br>Торрент добавлен на сервер<br><br><br>' ;
+            document.getElementById('zag').innerHTML='УСПЕХ';
+        } else {
+            document.getElementById('txt1').innerHTML='<br>Сервер вернул некорректный ответ<br><br><br>' ;
+            document.getElementById('zag').innerHTML='ОШИБКА';
+        }
+        }
+        request.send();
+    };
+
+    params = location.search.split('&s=');
+    server = params[1];
+    new_hash = params[2];
+    old_hash = params[3];
+    guid = params[4];
+    title = params[5];
+    poster = params[6];
+    document.getElementById('txt1').innerHTML='Добавляем на сервер '+server + ' новый торрент ';
+    add_other();
+
+    // http://192.168.1.83:8082/?&s=192.168.1.83:8090&s=eef3cb5267d76e110e90fb4db3b9c7854dbeb53f&s=&s=iii&s=Test1&s=https://i.imgur.com/Ph0BQIK.jpeg
+
+
+</script>
+
+
 </body>
 </html>
+
