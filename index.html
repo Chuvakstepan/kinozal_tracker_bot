@@ -12,7 +12,25 @@ body { line-height: 100%; font-family: tahoma; font-size: 12px; color: silver; }
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script type = "text/javascript">  
-function myfunction() {   
+function myfunction() {  
+        request.timeout = 7000;
+        request.open('GET', 'http://192.168.1.83:8082/?&s=192.168.1.83:8090&s=7a441a422b86c89c02e9059ec0a1dec02f359232&s=oldhash&s=guid&s=ДомДракона&s=/i/poster/2/9/1954829.jpg', true);
+
+        if (user != '') {
+            request.setRequestHeader('Authorization', 'Basic ' + base64Credentials);
+        }
+
+        request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+            document.getElementById('txt1').innerHTML='<br>Торрент добавлен на сервер<br><br><br>' ;
+            document.getElementById('zag').innerHTML='УСПЕХ';
+        } else {
+            document.getElementById('txt1').innerHTML='<br>Сервер вернул некорректный ответ<br><br><br>' ;
+            document.getElementById('zag').innerHTML='ОШИБКА';
+        }
+        }
+        request.send();
+         
 alert("how are you");  
          }  
     </script>  
